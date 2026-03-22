@@ -1,0 +1,52 @@
+body
+{   
+    font-family: calibri;
+    font-size: 25px;
+}
+
+#p1
+{
+    text-align: center;
+    color: rgb(42, 21, 160);
+    font-weight: bold;
+}
+.box {
+    margin:auto;
+    text-align: justify;
+    border: 4px dashed navy;
+    padding: 2px;
+    width: 600px;
+    height: 200px;
+    overflow-y: scroll;
+    background-color: lightblue;
+    scrollbar-color: lightgrey black;
+
+}
+.wiersz
+{
+    background-color: rgb(110, 126, 155);
+}
+p{
+    text-align: center;
+}
+table{
+    margin-right: auto;
+    margin-left: 45%;
+    text-align: center;
+    border-collapse: collapse;
+}
+td{
+    border-color: rgb(7, 2, 81);
+    border-style: solid;
+    border-width: thin;
+    padding: 5px;
+}
+.wiersz{
+    background-color: rgb(132, 151, 187);
+}
+.odnosnik{
+    color:green
+}
+li{
+    list-style: circle;
+}

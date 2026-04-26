@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let a = 550;
+        function wzor(n) {
+            let wynik = 0;
+            let mianownik = 1;
+            let znak = 1;
+
+            for (let i = 0; i < n; i++) {
+                wynik += (4 * (znak * (1/mianownik)));
+
+                mianownik += 2;
+                znak *=-1;
+            }
+        return wynik;
+        }
+        console.log("Wynik wynosi:", wzor(a))
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>    
+
+        let a = 5
+        let b = 50
+        
+        function liczby_parzyste(x,y) {
+            let tablica = [];
+            for (let i = x; i <=y; i++) {
+                if (i % 2 == 0) {
+                    tablica.push(i)
+                }
+
+            }
+            return tablica;
+        }
+        console.log("Liczby parzyste:", liczby_parzyste(a,b))
+
+
+    </script>
+</body>
+</html>

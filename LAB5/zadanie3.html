@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        function fibonacci(n) {
+
+            
+            if (n<=0) return [];
+            if (n==1) return [1];
+            let tablica = [1,1];
+            for(let i=2; i < n; i++) {
+
+                let kolejnywyraz = tablica[i-1] + tablica [i-2]
+                tablica.push(kolejnywyraz)
+            }
+
+        return tablica
+            
+        }
+        console.log("Tablica fibonacci:", fibonacci(8))
+       
+    </script>
+</body>
+</html>

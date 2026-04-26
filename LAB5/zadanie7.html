@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function dziesnaszesnastkowa(n) {
+        if (n === 0) return "0";
+
+        let znakiHex = "0123456789ABCDEF";
+        let wynik = "";
+
+        for (let liczba = n; liczba > 0; liczba = Math.floor(liczba / 16)) {
+            let reszta = liczba % 16;
+            wynik = znakiHex[reszta] + wynik;
+        }
+
+        return wynik;
+    }
+
+    console.log(dziesnaszesnastkowa(16*16));
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        #reset { display: none; }
+        #stop { display: none; }
+        #start { display: inline-block; }
+        #zapisz { display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1 id="czas">
+        <span id="godziny">00</span>:<span id="minuty">00</span>:<span id="sekundy">00</span>
+    </h1>
+    
+    <button id="start">START</button>
+    <button id="zapisz">ZAPISZ</button>
+    <button id="stop">STOP</button>
+    <button id="reset">RESET</button>
+    
+    <p id="stan_stopera"></p>
+    <ul id="zapisane_czasy"></ul>
+
+    <script>
+        let sekundyCalkowite = 0;
+        let interwal;
+
+        const elGodziny = document.getElementById('godziny');
+        const elMinuty = document.getElementById('minuty');
+        const elSekundy = document.getElementById('sekundy');
+        const elStan = document.getElementById('stan_stopera');
+        const elLista = document.getElementById('zapisane_czasy');
+
+        const btnStart = document.getElementById('start');
+        const btnZapisz = document.getElementById('zapisz');
+        const btnStop = document.getElementById('stop');
+        const btnReset = document.getElementById('reset');
+
+        function formatuj(wartosc) {
+            return wartosc < 10 ? '0' + wartosc : wartosc;
+        }
+
+        function aktualizujWyswietlacz() {
+            const h = Math.floor(sekundyCalkowite / 3600);
+            const m = Math.floor((sekundyCalkowite % 3600) / 60);
+            const s = sekundyCalkowite % 60;
+
+            elGodziny.innerText = formatuj(h);
+            elMinuty.innerText = formatuj(m);
+            elSekundy.innerText = formatuj(s);
+        }
+
+        btnStart.addEventListener('click', () => {
+            interwal = setInterval(() => {
+                sekundyCalkowite++;
+                aktualizujWyswietlacz();
+            }, 1000);
+
+            elStan.innerText = "Odliczanie...";
+            btnStart.style.display = 'none';
+            btnStop.style.display = 'inline-block';
+            btnReset.style.display = 'none';
+        });
+
+        btnStop.addEventListener('click', () => {
+            clearInterval(interwal);
+            elStan.innerText = "Wstrzymano";
+            btnStart.style.display = 'inline-block';
+            btnStop.style.display = 'none';
+            btnReset.style.display = 'inline-block';
+        });
+
+        btnZapisz.addEventListener('click', () => {
+            const h = elGodziny.innerText;
+            const m = elMinuty.innerText;
+            const s = elSekundy.innerText;
+            
+            const li = document.createElement('li');
+            li.innerText = `${h}:${m}:${s}`;
+            elLista.appendChild(li);
+        });
+
+        btnReset.addEventListener('click', () => {
+            clearInterval(interwal);
+            sekundyCalkowite = 0;
+            aktualizujWyswietlacz();
+            elStan.innerText = "";
+            elLista.innerHTML = "";
+            
+            btnStart.style.display = 'inline-block';
+            btnReset.style.display = 'none';
+            btnStop.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

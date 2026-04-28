@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .error { color: red; margin-bottom: 10px; }
+        .success { color: green; white-space: pre-wrap; }
+        div { margin-bottom: 10px; }
+        label { display: inline-block; width: 150px; }
+    </style>
+</head>
+<body>
+    <h2>Formularz rejestracji</h2>
+    <form id="regForm">
+        <div><label>Nazwa użytkownika:</label> <input type="text" id="user"></div>
+        <div><label>Adres e-mail:</label> <input type="text" id="email"></div>
+        <div><label>Hasło:</label> <input type="password" id="pass1"></div>
+        <div><label>Powtórz hasło:</label> <input type="password" id="pass2"></div>
+        <div><label>Data urodzenia:</label> <input type="date" id="dob"></div>
+        <div>
+            <label>Płeć:</label>
+            <select id="gender">
+                <option value="">--Wybierz--</option>
+                <option value="Mężczyzna">Mężczyzna</option>
+                <option value="Kobieta">Kobieta</option>
+                <option value="Nie chcę podawać">Nie chcę podawać</option>
+            </select>
+        </div>
+        <div>
+            <label><input type="checkbox" id="terms"> Akceptuję regulamin</label>
+        </div>
+        <div>
+            <label>Wersja:</label><br>
+            <input type="radio" name="ver" value="Wersja darmowa"> Wersja darmowa<br>
+            <input type="radio" name="ver" value="Wersja standardowa"> Wersja standardowa<br>
+            <input type="radio" name="ver" value="Wersja premium"> Wersja premium
+        </div>
+        <button type="button" onclick="waliduj()">Zarejestruj się</button>
+        <button type="reset">Wyczyść</button>
+    </form>
+
+    <div id="status"></div>
+
+    <script>
+        function waliduj() {
+            const status = document.getElementById('status');
+            const user = document.getElementById('user').value;
+            const email = document.getElementById('email').value;
+            const pass1 = document.getElementById('pass1').value;
+            const pass2 = document.getElementById('pass2').value;
+            const dob = document.getElementById('dob').value;
+            const gender = document.getElementById('gender').value;
+            const terms = document.getElementById('terms').checked;
+            const verRadio = document.querySelector('input[name="ver"]:checked');
+
+            let bledy = [];
+
+            if(!user || !email || !pass1 || !pass2 || !dob || !gender || !terms || !verRadio) {
+                bledy.push("Wszystkie pola muszą być wypełnione.");
+            }
+
+            if(!/^[a-zA-Z0-9]+$/.test(user)) {
+                bledy.push("Nazwa użytkownika może zawierać tylko litery i cyfry.");
+            }
+
+            if(pass1.length < 8 || !/\d/.test(pass1)) {
+                bledy.push("Hasło musi mieć min. 8 znaków i co najmniej jedną cyfrę.");
+            }
+            if(pass1 !== pass2) {
+                bledy.push("Hasła nie są identyczne.");
+            }
+
+            if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                bledy.push("Podaj poprawny adres e-mail.");
+            }
+            if(dob) {
+                const birthDate = new Date(dob);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                if(age < 18) bledy.push("Musisz być osobą pełnoletnią.");
+            }
+
+            if(bledy.length > 0) {
+                status.className = "error";
+                status.innerHTML = "Błędy:<br>" + bledy.join("<br>");
+            } else {
+                const d = new Date(dob);
+                const formatData = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth()+1).padStart(2, '0')}.${d.getFullYear()}`;
+                
+                status.className = "success";
+                status.innerHTML = `
+Nazwa użytkownika: ${user}
+Hasło: ${"*".repeat(pass1.length)}
+Adres e-mail: ${email}
+Data urodzenia: ${formatData}
+Płeć: ${gender}
+Wybrana wersja: ${verRadio.value}`;
+            }
+        }
+    </script>
+</body>
+</html>

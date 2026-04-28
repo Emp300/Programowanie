@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Kalkulator dzielenia</h2>
+    <input type="text" id="liczba1" placeholder="Liczba 1">
+    <input type="text" id="liczba2" placeholder="Liczba 2">
+    <button onclick="dzielLiczby()">Podziel</button>
+    <div id="wynik1" style="margin-top: 10px;"></div>
+
+    <script>
+        function dzielLiczby() {
+            const wynikDiv = document.getElementById('wynik1');
+            const l1 = document.getElementById('liczba1').value;
+            const l2 = document.getElementById('liczba2').value;
+
+            try {
+                if (l1 === "" || l2 === "") throw new Error("Oba pola muszą być wypełnione.");
+
+                const n1 = parseFloat(l1.replace(',', '.'));
+                const n2 = parseFloat(l2.replace(',', '.'));
+
+                if (isNaN(n1) || isNaN(n2)) throw new Error("Wprowadzone dane nie są poprawnymi liczbami.");
+
+                if (n2 === 0) throw new Error("Nie można dzielić przez zero.");
+
+                const wynik = n1 / n2;
+                wynikDiv.style.color = "black";
+                wynikDiv.innerHTML = "Wynik: " + wynik;
+
+            } catch (error) {
+                
+                wynikDiv.style.color = "red";
+                wynikDiv.innerHTML = "Błąd: " + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <form id="userForm">
+        <input type="text" id="firstName" placeholder="Imię" required>
+        <input type="text" id="lastName" placeholder="Nazwisko" required>
+        <input type="number" id="age" placeholder="Wiek" required>
+        <button type="submit">Zapisz do obiektu</button>
+    </form>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const osoba = {
+                imie: document.getElementById('firstName').value,
+                nazwisko: document.getElementById('lastName').value,
+                wiek: parseInt(document.getElementById('age').value)
+            };
+
+            console.log("Cały obiekt:", osoba);
+
+            console.log("Imię:", osoba.imie);
+            console.log("Nazwisko:", osoba.nazwisko);
+            console.log("Wiek:", osoba.wiek);
+
+            const osobaJSON = JSON.stringify(osoba);
+            console.log("Obiekt jako tekst JSON:", osobaJSON);
+            alert("Dane zapisane w konsoli (F12) oraz jako JSON: " + osobaJSON);
+        });
+    </script>
+</body>
+</html>

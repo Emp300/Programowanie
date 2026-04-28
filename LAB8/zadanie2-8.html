@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        .info { background: #f4f4f4; border-left: 5px solid #007bff; padding: 10px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <script>
+        // ZADANIE 2
+        class ComplexNumber {
+            constructor(real, imaginary) {
+                this.real = real;
+                this.imaginary = imaginary;
+            }
+
+            wypisz() {
+                const znak = this.imaginary >= 0 ? "+" : "-";
+                return `${this.real} ${znak} ${Math.abs(this.imaginary)}i`;
+            }
+
+            module() {
+                return Math.sqrt(Math.pow(this.real, 2) + Math.pow(this.imaginary, 2));
+            }
+        }
+
+        // ZADANIE 3
+        function generujTabliceZespolonych(n) {
+            const tablica = [];
+            for (let i = 0; i < n; i++) {
+                const r = Math.floor(Math.random() * 21) - 10;
+                const im = Math.floor(Math.random() * 21) - 10;
+                tablica.push(new ComplexNumber(r, im));
+            }
+            return tablica;
+        }
+
+        const dane = generujTabliceZespolonych(10);
+        console.log(" DANE WEJŚCIOWE");
+        dane.forEach(l => console.log(l.wypisz()));
+
+        //  ZADANIE 4
+        const tylkoDodatnie = (tab) => tab.filter(c => c.real > 0 && c.imaginary > 0);
+        console.log("\nZADANIE 4");
+        tylkoDodatnie(dane).forEach(l => console.log(l.wypisz()));
+
+        // ZADANIE 5
+        const zamienCzesci = (tab) => tab.map(c => new ComplexNumber(c.imaginary, c.real));
+        console.log("\nZADANIE 5 ");
+        zamienCzesci(dane).forEach(l => console.log(l.wypisz()));
+
+        // ZADANIE 6
+        const sumaModulow = (tab) => tab.reduce((acc, c) => acc + c.module(), 0);
+        console.log("\nZADANIE 6");
+        console.log(sumaModulow(dane).toFixed(4));
+
+        // ZADANIE 7
+        const minModul = (tab) => tab.reduce((min, c) => Math.min(min, c.module()), tab[0].module());
+        console.log("\nZADANIE 7 ");
+        console.log(minModul(dane).toFixed(4));
+
+        // ZADANIE 8
+        const maxModulObiekt = (tab) => tab.reduce((max, c) => (c.module() > max.module() ? c : max), tab[0]);
+        const najlepsza = maxModulObiekt(dane);
+        console.log("\nZADANIE 8");
+        console.log("Liczba:", najlepsza.wypisz(), "| Moduł:", najlepsza.module().toFixed(4));
+    </script>
+</body>
+</html>
